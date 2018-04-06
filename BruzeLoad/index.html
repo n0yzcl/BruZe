@@ -1,0 +1,49 @@
+<html>
+    
+    <head>    
+        <link type ="text/css" rel ="stylesheet" href ="css/index.css"/>
+        <link type ="text/css" rel ="stylesheet" href ="css/colors.css"/>
+        
+    </head>
+
+    <body>
+        <img id="background"/>
+
+        <img id="cursor" src="img/cursor.png"/>
+
+        <div id="music-info">
+            <p id="now-playing">Now playing: n.a.</p>
+            <button id="playButton" type="button">Pause</button>
+            <input type="range" min="1" max="100" id="volumeSlider">
+        </div>
+        
+        <img id="logo" src="img/logo.png"/>
+
+        <div class="content-container">
+            <span>
+                <p id="message" class="loading-text">Hold on, crushing snails.... &#x1f40c; &#x1f528;</p>
+                <p class="loading-text stick-to-right"><span id="progress-bar-value">0</span>%</p>
+            </span>
+        </div>
+          
+        <div class="content-container">
+            <progress id="pb0" class="hide" min="0" max="100" value="0"></progress>
+            <progress id="pb1" class="hide" min="0" max="100" value="0"></progress>
+            <progress id="pb2" class="hide" min="0" max="100" value="0"></progress>
+            <progress id="pb3" class="hide" min="0" max="100" value="0"></progress>
+            <progress id="pb4" class="hide" min="0" max="100" value="0"></progress>          
+        </div> 
+
+        <div id="player"></div>
+
+    </body>
+
+    <script src="js/synn.js"></script>    
+    <script src="js/config.js"></script>
+    <script src="js/progressbar-main.js"></script>
+    <script src="js/progressbar-handler.js"></script>
+    <script src="js/progressbar-renderer.js"></script>
+    <script src="js/music-handler.js"></script>
+    <script src="js/music-controls.js"></script>
+    <script src="js/background-handler.js"></script>
+</html>
