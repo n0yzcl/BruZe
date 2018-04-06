@@ -1,4 +1,4 @@
-# BruZe - Zombies | Custom Loot Spawns | Custom Vehicle Spawns | Custom Missions | Loot Drops
+# BruZe - Zombies
 BruZe is a Zombie gamemode for FiveM. I plan to add many features to the gamemode.
 
 ## Unique Features
