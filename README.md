@@ -1,9 +1,6 @@
 # BruZe - Zombies
 BruZe is a Zombie gamemode for FiveM. I plan to add many features to the gamemode.
 
-## People Who Have Contributed
-- KnightDev
-
 ## Unique Features
 - No default vehicle spawns
 - No default NPC spawns
@@ -16,7 +13,12 @@ BruZe is a Zombie gamemode for FiveM. I plan to add many features to the gamemod
 - Feel free to make pull requests of features you would like added.
 
 ## Credits
-- Disable peds spawn - Bluethefurry
+- Bluethefurry
+    - Recoil
+    - Disable NPC spawns
+
+## People Who Have Contributed
+- KnightDev
 
 ## Further Information
 - Still work in progress!
