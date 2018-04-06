@@ -13,12 +13,10 @@ BruZe is a Zombie gamemode for FiveM. I plan to add many features to the gamemod
 - Feel free to make pull requests of features you would like added.
 
 ## Credits
+- Knight
+    - Contributor
 - Bluethefurry
-    - Recoil
-    - Disable NPC spawns
-
-## People Who Have Contributed
-- KnightDev
+    - Recoil code
 
 ## Further Information
 - Still work in progress!
