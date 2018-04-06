@@ -1,0 +1,59 @@
+@import url('res/futurastd-medium.css');
+
+html {
+	color: #fff;
+}
+#wrap {
+	width:400px;
+	height:300px;
+	min-height: 50px;
+  	left:-webkit-calc( 50% - 200px );
+  	top:1%;
+	position:absolute;
+	padding:20px;
+	text-align: center;
+	@include box-sizing(border-box);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+}
+
+table {
+	text-align: left;
+}
+
+th, td {
+	padding-left: 25px;
+}
+
+th {
+	padding-top: 10px;
+	height: 40px;
+}
+
+tr {
+	font-size: 120%;
+	font-family: 'Segoe UI';
+    /*text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);*/
+	border: 5px rgb(93, 182, 229); /* Default: rgb(225, 59, 59);*/
+	border-style: none solid none solid;
+	background-color: rgb(45, 45, 45);
+	height: 25px;
+}
+
+tr.heading {
+    background-color: rgb(45, 45, 45);
+    color: rgba(255, 255, 255, 0.9);    
+}
+
+#playerbox {
+	position: relative;
+	align-self: right;
+	text-align: center;
+    width: 75px;
+    border: 1px;
+    color: black;
+    background-color: rgb(93, 182, 229); /* Default: rgb(225, 59, 59);*/
+    border-radius: 15px 0px 0px 15px;
+    left: 70px;
+}
