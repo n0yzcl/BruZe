@@ -13,7 +13,7 @@ function NextBackground()
 {
     index = (index + 1) % config.background.length;
 
-    lib.fadeInOut(600, "background", 0, 0.2);
+    lib.fadeInOut(600, "background", 0, 1);
 
     setTimeout(function()
     {

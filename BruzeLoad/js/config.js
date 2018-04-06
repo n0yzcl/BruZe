@@ -107,14 +107,14 @@ var config =
     /*
         Default volume for the player. Please keep this under 50%, to not blowout someones eardrums x)
      */
-    musicVolume: 20,
+    musicVolume: 25,
 
     /*
         Should the background change images?
         True: it will not change backgrounds.
         False: it will change backgrounds.
     */
-    staticBackground: false,
+    staticBackground: true,
     
     /*
         Array of images you'd like to display as the background.
@@ -123,8 +123,6 @@ var config =
     background: 
     [
         "img/bg1.jpg",
-        "img/bg2.jpg",
-        "img/bg3.jpg",
     ],
 
     /*
