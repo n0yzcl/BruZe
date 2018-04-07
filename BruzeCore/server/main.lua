@@ -1,89 +1,130 @@
-local users = {}
-local players = {}
-local bans = {}
-local dir = {
-	main = "D:/Bruze/data",
-	users = "D:/Bruze/data/users",
-	bans = "D:/Bruze/data/bans",
-}
+Players = {}
+Users = {}
+
+local dir = { main = "D:/Bruze/data",	users = "D:/Bruze/data/users", bans = "D:/Bruze/data/bans"}
+
 local DefaultUser = {
-	["Power"] = {
-        group = "user", 
-        permissions = 0,
-    },
-	["player"] = {
-		coords = {},
-		model = 0,
-	},
-	["owned"] = {
-		money = 2000,
-		weapons = {},
-		inventory = {},
-	},
-	["stats"] = {
-		zkills = 0,
-		pkills = 0,
-		humanity = 0,
-	},
-	["extras"] = {
-		online = true,
-		new = true,
-	},
+	license = "",
+    group = "user", 
+    permissions = 0,
+    coords = {x = -208.037, y = -1018.613, z = 30.138},
+	model = "S_M_M_Gaffer_01",
+	money = 2000,
+	weapons = {},
+	inventory = {},
+	zkills = 0,
+	pkills = 0,
+	humanity = 0,
+	online = true,
+	new = true,
 }
 
+-- Player Joins --
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
 	local identifier = getID("steam", source)
-	local hex = string.gsub(identifier, "steam:", "")
-	print("[BruzeCore] User ".. playerName .." (".. identifier ..") is connecting...")
+	if identifier then
+		print("[BruZe Core] Player ".. playerName .." (".. identifier ..") is connecting...")
+		local steamHex = string.gsub(identifier, "steam:", "")
 
-	if identifier == nil or identifier == 0 or identifier == false then
-		print("[BruzeCore] User ".. playerName .." was declined as they are no signed into steam.")
-		SetKickReason("You must be signed into steam to join this server!")
+		local bans = loadData("bans.txt", dir.bans)
+		local found = false
+		for i = 1, #bans do
+			if bans[i] == identifier then
+				found = true
+			end
+		end
+		if not found then
+			if file_exists(steamHex..".txt", dir.users) then
+				print("[BruZe Core] ".. playerName .." is a returning player.")
+				loadUser(steamHex, source)
+			else
+				print("[BruZe Core] ".. playerName .." is a new player.")
+				loadNewUser(steamHex, source)
+			end
+		else
+			setKickReason("You are banned from the BruZe servers.")
+			print("[BruZe Core] Player ".. playerName .." tried to connect but is banned.")
+			CancelEvent()
+		end
+	else
+		setKickReason("BruZe - You must be connected to steam to play on this server!")
+		print("[BruZe Core] Player ".. playerName .." tried to connect but isn't logged in to steam.")
 		CancelEvent()
 	end
 
-	bans = loadBans()
-	for i, v in pairs(bans) do
-		if v[1] == identifier then
-			print("[BruzeCore] User ".. playerName .." was declined as they are banned.")
-			setKickReason("You are banned: ".. v[2] .." - Appeal on discord.me/bruze")
-			CancelEvent()
-		end
-	end
-
-	if file_exists(hex..".txt", dir.users) then
-		users[source] = loadPlayerData(hex)
-		print("[BruzeCore] User ".. playerName .." (".. identifier ..") is a returning player.")
-	else
-		users[source] = DefaultPlayer
-		print("[BruzeCore] User ".. playerName .." (".. identifier ..") is a new player!")
-		if saveData(DefaultPlayer, hex..".txt", dir.users) then
-			print("[BruzeCore] User ".. playerName .." (".. identifier ..") has successfully been saved!")
-		else
-			print("[BruzeCore] User ".. playerName .." (".. identifier ..") has unsuccessfully been saved!")
-		end
-	end
-
-	table.insert(players, identifier)
-	print("[BruzeCore] User ".. playerName .." (".. identifier ..") has connected.")
 end)
 
 -- Player Leaves --
 AddEventHandler('playerDropped', function()
-	local identifier = getID("steam", source)
-	local hex = string.gsub(identifier, "steam:", "")
-	print("[BruzeCore] User ".. GetPlayerName(source) .." (".. identifier ..") disconnecting...")
-	for i, v in pairs(players) do
-		if v[1] == identifier then
-			table.remove(players, i)
-		end
-	end
-	if saveData(users[source], hex..".txt", dir.users) then
-		print("[BruzeCore] User ".. GetPlayerName(source) .." (".. identifier ..") has successfully been saved.")
-	else
-		print("[BruzeCore] User ".. GetPlayerName(source) .." (".. identifier ..") has unsuccessfully been saved.")
-	end
+	print("[BruZe Core] Player ".. GetPlayerName(source) .." is disconnecting...")
+	local src = tonumber(source)
+    if(Users[src]) or Users[src] ~= nil then
+        local user = Users[src]
+        local saveUser = {
+        	license = v.getLicense(),
+            group = v.getGroup(), 
+   			permissions = v.getPermissions(),
+    		coords = v.getCoords(),
+			model = v.getModel(),
+		    money = v.getMoney,
+			weapons = v.getWeapons(),
+			inventory = v.getInventory(),
+			zkills = v.getZombieKills(),
+			pkills = v.getPlayerKills(),
+			humanity = v.getHumanity(),
+			online = v.getOnline(),
+			new = v.getNew(),
+        }
+        saveData(saveUser, string.gsub(user.getIdentifier(), "steam:", "")..".txt",dir.users)
+        Users[src] = nil
+		print("[BruZe Core] Player ".. GetPlayerName(source) .." has disconnected.")
+    end
 end)
+
+-- Create User --
+function loadNewUser(identifier, source)
+	local newUser = DefaultUser
+	newUser.license = getID("license", source)
+	saveData(newUser, identifier..".txt", dir.users)
+	loadUser(identifier, source)
+end
+
+-- Load User --
+function loadUser(identifier, source)
+	local data = loadData(string.gsub(getID("steam", source), "steam:", "")..".txt", dir.users)
+    Users[source] = createUser(source, data)
+    print("[BruZe Core] Player ".. GetPlayerName(source) .." has loaded.")
+end
+
+-- Save User --
+function saveUser()
+	SetTimeout(60000, function()
+		for k,v in pairs(Users)do
+            if Users[k] ~= nil then
+                if v.get('haveChanged') == true then
+                    local saveUser = {
+                        group = v.getGroup(), 
+   						permissions = v.getPermissions(),
+    					coords = v.getCoords(),
+						model = v.getModel(),
+						money = v.getMoney,
+						weapons = v.getWeapons(),
+						inventory = v.getInventory(),
+						zkills = v.getZombieKills(),
+						pkills = v.getPlayerKills(),
+						humanity = v.getHumanity(),
+						online = v.getOnline(),
+						new = v.getNew(),
+                    }
+                    saveData(saveUser, string.gsub(v.getIdentifier(), "steam:", "")..".txt",dir.users)
+                    v.set('haveChanged', 0)
+                end
+            end
+        end
+        saveUser()
+	end)
+end
+saveUser()
 
 -- Load Data --
 function loadData(filename, filepath)
@@ -99,35 +140,6 @@ function loadData(filename, filepath)
         return myTable
     end
     return nil
-end
-
--- Load Player Data --
-function loadPlayerData(hex)
-	local data 
-
-	if file_exists(hex..".txt", dir.users) then
-		data = loadData(hex..".txt", dir.users)
-	else
-		data = {}
-		print("[BruzeCore] No player data found for ".. hex ..".")
-		-- Kick for no data
-	end
-
-	return data
-end
-
--- Load Bans --
-function loadBans()
-	local data 
-
-	if file_exists("bans.txt", dir.bans) then
-		data = loadData("bans.txt", dir.bans)
-	else
-		data = {}
-		saveData(data, "bans.txt", dir.bans)
-	end
-
-	return data
 end
 
 -- Save Data --
@@ -171,15 +183,44 @@ function getID(type, source)
     return nil
 end
 
---[[ Plan 
+-- Get Players --
+AddEventHandler('f:getPlayers', function(cb)
+    cb(Users)
+end)
 
-	- Player connects
-	- Check if they have a hex
-		- Kick if they don't
-	- Check if the player is banned
-		- Kick if they are
-	- See if the player data exists to that hex
-		- If none exists, create one with the default data
-		- Load that player data and spawn the player using it
+-- Get All Players --
+AddEventHandler('f:getAllPlayers', function(cb)
+    local All = {}
+    for k,v in pairs(Players) do
+        local u = loadData(v..".txt",dir.users)
+        table.insert(All, u)
+    end
+    cb(All)
+end)
 
-]] --
+-- Get Player File --
+AddEventHandler("f:getPlayerFile", function(identifier, cb)
+    if file_exists(identifier..".txt",dir.users) then
+        cb(loadData(identifier..".txt",dir.users))
+    else
+        cb(nil)
+    end
+end)
+
+-- Get Player --
+AddEventHandler("z:getPlayer", function(user, cb)
+    if(Users)then
+        if(Users[user])then
+            cb(Users[user])
+        else
+            cb(nil)
+        end
+    else
+        cb(nil)
+    end
+end)
+
+-- Get Dir --
+AddEventHandler("z:getdir", function(cb)
+    cb(dir.main)
+end)
