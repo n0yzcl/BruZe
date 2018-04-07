@@ -55,21 +55,21 @@ var config =
     */
     loadingMessages: 
     [
-        "Picking up snails... &#x1f40c;",
-        "Placing snails on the map... &#x1f40c;",
-        "Crushing a snail.... &#x1f40c; &#x1f528;",
-        "Stepping on a snail.... &#x1f40c; &#x1f462;",
-        "Putting slugs back into their shell.. &#x1f41a.",
-        "Playing cricket with a snail... &#x1f3cf",
-        "Programming snail AI... &#x1f9e0;",
-        "Selling snails to a french guy. &#x1f956;",
-        "Eating FiveM's mascot snail... &#x1f374;",
+        "Picking up loot... &#x1f40c;",
+        "Placing loot around the map... &#x1f40c;",
+        "Crushing a zombies head.... &#x1f40c; &#x1f528;",
+        "Stepping on a zombies toe.... &#x1f40c; &#x1f462;",
+        "Putting zombies around the map.. &#x1f41a.",
+        "Playing cricket with a zombie... &#x1f3cf",
+        "Programming zombie AI... &#x1f9e0;",
+        "Selling brains to a zombie. &#x1f956;",
+        "Zombie eating FiveM's mascot snail... &#x1f374;",
         "Syntasu is snailsome! &#x1f60d;",
         "Oof!",
-        "Learning a snail to drive... &#x1f697;",
-        "Golfing using a snail... &#x1f3cc;",
-        "Calling PETA for animal abuse... &#x1f4f1;",
-        "No snails were hurt during this loadscreen. &#x1f691;",
+        "Teaching a zombie to drive... &#x1f697;",
+        "Playing football using a zombies head... &#x1f3cc;",
+        "Calling PETA for zombie abuse... &#x1f4f1;",
+        "No humans were hurt during this loadscreen. &#x1f691;",
     ],
 
     /*
@@ -90,11 +90,11 @@ var config =
     */
     music:
     [
-        "AINGJmnwMic", "sT_VcU_jOEM", "PVfjOjiBUkc", "vWdjWYhEONA",
-        "HcJHr_8i-PY", "HCXW-Wbfn4U", "E1nBw1IwCI8", "wzAq_wbVT9A",
-        "KeuPv9lN6zI", "IEZ6JHezCAw", "kGh7spYm2fs", "wLo2RvLU57c",
-        "NYuhye3AYSY", "u3xqpu7v8jU", "UTBuH5ZNnJQ", "vWdjWYhEONA",
         "FYW1Y4EEA2Y", "E-4Dtd6mC-c", "zQnj66Xuajs", "8OgHDck_vT0",
+        "NYuhye3AYSY", "u3xqpu7v8jU", "UTBuH5ZNnJQ", "vWdjWYhEONA",
+        "HcJHr_8i-PY", "HCXW-Wbfn4U", "E1nBw1IwCI8", "wzAq_wbVT9A",
+        "AINGJmnwMic", "sT_VcU_jOEM", "PVfjOjiBUkc", "vWdjWYhEONA",
+        "KeuPv9lN6zI", "IEZ6JHezCAw", "kGh7spYm2fs", "wLo2RvLU57c",
         "kUdCNdd9n28", "qDUH3PUoYtw", "SoMeB4QBVug", "8sV6AT6jVuI"
     ],
 
@@ -114,7 +114,7 @@ var config =
         True: it will not change backgrounds.
         False: it will change backgrounds.
     */
-    staticBackground: true,
+    staticBackground: false,
     
     /*
         Array of images you'd like to display as the background.
@@ -123,11 +123,12 @@ var config =
     background: 
     [
         "img/bg1.jpg",
+        "img/bg2.jpg"
     ],
 
     /*
         Time in milliseconds on how fast the background
         should swap images.
      */
-    backgroundSpeed: 10 * 1000,
+    backgroundSpeed: 10 * 3000,
 }
