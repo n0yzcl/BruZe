@@ -91,9 +91,14 @@ end
 
 -- Load User --
 function loadUser(identifier, source)
-	local data = loadData(string.gsub(getID("steam", source), "steam:", "")..".txt", dir.users)
-    Users[source] = createUser(source, data)
-    print("[BruZe Core] Player ".. GetPlayerName(source) .." has loaded.")
+	if file_exists(string.gsub(getID("steam", source), "steam:", "")..".txt", dir.users) then
+		local data = loadData(string.gsub(getID("steam", source), "steam:", "")..".txt", dir.users)
+   		Users[source] = createUser(source, data)
+    	print("[BruZe Core] Player ".. GetPlayerName(source) .." has loaded.")
+    else
+    	DropPlayer(source, "[BruZe Core] Unable to load account data.")
+    	print("[BruZe Core] Unable to load account data for ".. GetPlayerName(source))
+    end
 end
 
 -- Save User --
