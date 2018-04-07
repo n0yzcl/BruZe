@@ -28,11 +28,13 @@ end
 function drink(itemId)
 	if thirst < maxThirst then
 		if itemId == 10 then -- Water
-			thirst = thirst + 25
-			if thirst > maxThirst then thirst = maxThirst end
+			thirst = thirst + 25	
+		elseif itemId == 11 then
+			thirst = thirst + 30	
 		else
 			Notify("This item can not be drunk.")
 		end
+		if thirst > maxThirst then thirst = maxThirst end
 	else
 		Notify("Your thirst is already full.")
 	end
